@@ -40,3 +40,6 @@ app.get("/bugs/:numberOfBugs", (req, res) => {
     );
   }
 });
+
+
+module.exports = app
