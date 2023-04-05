@@ -42,7 +42,6 @@ app.get("/bugs", (req, res)=> {
 });
 
 //Poke-Express
-
 app.get("/pokemon/search", (req, res) => {
     const { name } = req.query;
     const matchingPokemon = pokemon.filter((p) =>
@@ -67,5 +66,24 @@ app.get("/pokemon", (req, res)=> {
     res.json(pokemon);
 });
 
+
+// Bonus 
+
+app.get("/pokemon-pretty/", (req, res)=> {
+    const html = pokemon.map((p, index) => 
+        `<ul>
+        <a href="http://localhost:8888/pokemon-pretty/${index}">${p.name}</a>
+        </ul>`).join("");
+    res.send(html);
+})
+
+app.get("/pokemon-pretty/:indexOfArray", (req, res)=> {
+    const {indexOfArray} = req.params;
+    if(indexOfArray > 150){
+        res.send(`Sorry, no pokemon found at ${indexOfArray}`);
+    }else{
+        res.send(pokemon[indexOfArray])
+    }  
+});
 
 module.exports = app;
