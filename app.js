@@ -1,7 +1,13 @@
 const express = require("express");
 const app = express();
 const pokemon = require("./models/pokemon.json")
-console.log(pokemon[0])
+console.log(pokemon.length)
+
+//Welcome message 
+app.get("/", (req, res)=> {
+     res.send("Welcome 99 Pokemon");
+ });
+
 
 //New Project Name Generator
 app.get("/:verb/:adjective/:noun", (req, res)=> {
@@ -36,11 +42,28 @@ app.get("/bugs", (req, res)=> {
 });
 
 //Poke-Express
-app.get("/pokemon", (req, res)=> {
-    res.json(pokemon);
-});
+
+app.get("/pokemon/search", (req, res) => {
+    const { name } = req.query;
+    const matchingPokemon = pokemon.filter((p) =>
+      p.name.toLowerCase().includes(name.toLowerCase())
+    );
+    res.send(matchingPokemon);
+  });
+
 
 app.get("/pokemon/:indexOfArray", (req, res)=> {
+    const {indexOfArray} = req.params;
+    if(indexOfArray > 150){
+        res.send(`Sorry, no pokemon found at ${indexOfArray}`);
+    }else{
+        res.send(pokemon[indexOfArray])
+    }  
+});
+
+
+
+app.get("/pokemon", (req, res)=> {
     res.json(pokemon);
 });
 
