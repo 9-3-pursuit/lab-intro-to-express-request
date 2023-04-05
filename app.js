@@ -8,14 +8,14 @@ const app = express();
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Welcome 99 Pokemon 🪰");
+  res.send("Welcome 99 Pokemon");
 });
 
 // Name Generator -> 3 parameters in the URL
 app.get("/:verb/:adjective/:noun", (req, res) => {
   const { verb, adjective, noun } = req.params;
   res.send(
-    `Congratulations on starting a new project called ${verb}-${adjective}-${noun} !`
+    `Congratulations on starting a new project called ${verb}-${adjective}-${noun}!`
   );
 });
 
@@ -31,7 +31,7 @@ app.get("/bugs", (req, res) => {
 app.get("/bugs/:numberOfBugs", (req, res) => {
   const { numberOfBugs } = req.params;
   if (numberOfBugs >= 200) {
-    res.send("Start over!");
+    res.send("Too many bugs!! Start over!");
   } else {
     res.send(
       `<a href='/bugs/${
@@ -64,7 +64,7 @@ app.get("/pokemon/:index", (req, res) => {
   const { index } = req.params;
   if (pokemon[index]) res.send(pokemon[req.params.index]);
   else {
-    res.send(`Sorry, no pokemon found ${index}`);
+    res.send(`Sorry, no pokemon found at ${index}`);
   }
 });
 
