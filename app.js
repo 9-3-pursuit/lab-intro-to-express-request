@@ -47,7 +47,7 @@ app.get("/pokemon", (req, res) => {
 });
 
 // pokemon search
-app.get("/pokemon", (req, res) => {
+app.get("/pokemon/search", (req, res) => {
   const { name } = req.query;
 
   for (let i = 0; i < pokemon.length; i++) {
