@@ -1,7 +1,7 @@
 // Dependencies
 const express = require("express");
 const pokemon = require("./models/pokemon.json");
-// console.log(pokemon[0]);
+//  console.log(pokemon[0]);
 
 // Configuration
 const app = express();
@@ -41,5 +41,22 @@ app.get("/bugs/:numberOfBugs", (req, res) => {
   }
 });
 
+// Poke-Express
+app.get("/pokemon", (req, res) => {
+  res.send(pokemon);
+});
 
-module.exports = app
+// pokemon search
+app.get("/pokemon", (req, res) => {
+  const { name } = req.query;
+
+  for (let i = 0; i < pokemon.length; i++) {
+    if (name.toLowerCase() === pokemon[i].name.toLowerCase()) {
+      res.send([pokemon[i]]);
+    } else {
+      res.send([]);
+    }
+  }
+});
+
+module.exports = app;
