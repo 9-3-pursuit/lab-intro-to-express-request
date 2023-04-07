@@ -26,15 +26,27 @@ app.get('/pokemon', (req, res) => {
     res.json(pokemon);
 } ); 
 
+
+app.get('/pokemon/search', (req, res) => {
+    const  name  = req.query.name;
+    const pkmn = pokemon.filter(poke => poke.name === `${name.charAt(0).toUpperCase()}${name.slice(1).toLowerCase()}`)
+    if (pkmn) {
+        res.send(pkmn)
+    } else {
+        res.send([])
+    }
+});
+
 app.get('/pokemon/:indexOfArray', (req, res) => { 
-    res.send(pokemon[req.params.indexOfArray]); 
+    const index = req.params.indexOfArray
+    if ( pokemon[index])
+       {
+         res.send(pokemon[index]);
+       }
+    else {
+         res.send(`Sorry, no pokemon found at ${index}`)
+    }   
 } );
-
-
-app.get('/pokemon/:search', (req, res) => {  
-    res.json(pokemon.filter(poke => poke.name.toLowerCase() === req.query.name.toLowerCase())); 
-} );
- 
 
 
 app.get('/:verb/:adjective/:noun', (req, res) => {
