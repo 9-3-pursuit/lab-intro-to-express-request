@@ -3,11 +3,7 @@ const app = express();
     //console.log(app);
 const pokemon = require('./models/pokemon');
     console.log(pokemon[0]);
-
-// function toCapitalize(str) {
-//     const stringCapitilization = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-//         return stringCapitilization;
-//     }
+    
 
     // sends a welcome message 
 app.get("/",(req, res) => {
