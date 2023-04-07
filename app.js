@@ -5,13 +5,15 @@ const pokemon = require('./models/pokemon');
     console.log(pokemon[0]);
 
 
-    // sends a welcome message 
+            // Routes 
+    //sends a welcome message
 app.get("/",(req, res) => {
     res.send("Welcome 99 Pokemon");
 });
 
 
-    // sends an h1 message
+    // 99 Little Bugs In the Code 
+        // sends an h1 message
 app.get("/bugs", (req, res) => {
         res.send(`<h1>99 little bugs in the code</h1><br> <a href="/bugs/101"> Pull one down, patch it around</a>`); 
 });
@@ -56,18 +58,28 @@ app.get('/pokemon/search', (req, res) => {
 app.get('/pokemon/:indexOfArray', (req, res) => { 
     const index = req.params.indexOfArray
     if (pokemon[index]) {
-        res.send(pokemon[index]);
+        res.send(pokemon[index])
     } else {
         res.send(`Sorry, no pokemon found at ${index}`);
     }  
 });
 
 
-            // Simple Activity
-    // sends a congratulations adjective 
+    // Simple Activity: New Project Name Generator
+         // sends a congratulations adjective 
 app.get('/:verb/:adjective/:noun', (req, res) => {
     const {verb, adjective, noun} = req.params
         res.send(`Congratulations on starting a new project called ${verb}-${adjective}-${noun}!`)
+});
+
+
+            // Bonus 
+app.get("/pokemon-pretty/", (req, res)=> {
+    const html = pokemon.map((p, index) => 
+        `<ul>
+        <a href="http://localhost:8888/pokemon-pretty/${index}">${poke.name}</a>
+        </ul>`).join("");
+    res.send(html);
 });
 
 
