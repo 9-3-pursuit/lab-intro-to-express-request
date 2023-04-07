@@ -3,7 +3,7 @@ const app = express();
     //console.log(app);
 const pokemon = require('./models/pokemon');
     console.log(pokemon[0]);
-    
+
 
     // sends a welcome message 
 app.get("/",(req, res) => {
@@ -25,7 +25,7 @@ app.get('/bugs/:number_Of_Bugs', (req, res) => {
     if (bugNum < 200) {
         res.send(`${bugNum} little bugs in the code <a href="/bugs/${Number(bugNum) + 2}">Pull one down, patch it around</a>`);
    } else {
-     res.send(`Too many bugs!! Start over! <a href="/bugs"> Click Here </a>`);
+     res.send(`<a href="/bugs">Too many bugs!! Start over!</a>`);
    }
 });
 
@@ -50,7 +50,6 @@ app.get('/pokemon/search', (req, res) => {
     }
 });
    
-
 
     // sends a match when the index matches a Pokemon
     // sends a sorry message when no Pokemon is found at the index 
