@@ -72,6 +72,16 @@ app.get("/pokemon/search", (req, res) => {
   
     res.send(filterPokemon(searchCriteria));
   });
+
+  app.get("/pokemon/:indexOfArray", (req, res) => {
+    const { indexOfArray } = req.params;
+    if (pokemon[indexOfArray]) {
+      res.send(pokemon[indexOfArray]);
+    } else {
+      res.send(`Sorry, no pokemon found at ${indexOfArray}`);
+    }
+  });
+  
   
 
 
