@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, response) => {
-  response.send("Starting a new project");
+  response.send("Welcome 99 Pokemon");
 });
 
 app.get("/:verb/:adjective/:noun", (req, res) => {
