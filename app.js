@@ -43,9 +43,22 @@ const pokemonHandler = (req, res) => {
 };
 
 const pokemonSearchHandler = (req, res) => {
-  const pokemonName = req.query.name;
-  const pokemonFound = pokemon.filter((poke) => poke.name.toLowerCase() === pokemonName.toLowerCase());
+  const keys = Object.keys(req.query);
+  const property = keys[0];
+  const value = req.query[property];
 
+  const pokemonFound = pokemon.filter((poke) => {
+    if (property === "type") {
+      return poke.type.includes(value);
+    }
+
+    if (property === "attack") {
+      return Number(poke.stats.attack) >= Number(value);
+    }
+    return poke[property].toLowerCase() === value.toLowerCase();
+  });
+
+  // Harold Logic continued
   if (pokemonFound.length === 0) {
     res.status(404).json(pokemonFound);
     return;

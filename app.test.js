@@ -56,10 +56,20 @@ describe("app", () => {
       expect(JSON.parse(response.text)).toEqual([pokemon[0]]);
     });
 
+    it("sends the Pokemon when the type is included matches: Grass Pokemon", async () => {
+      const response = await request(app).get(`/pokemon/search?type=Grass`);
+      const grassType = pokemon.filter((poke) => poke.type.includes("Grass"));
+      expect(JSON.parse(response.text)).toEqual(grassType);
+    });
+
+    it("sends the Pokemons who's attack stat is greater than or equal to 80", async () => {
+      const response = await request(app).get(`/pokemon/search?attack=80`);
+      const pokemon80Plus = pokemon.filter((poke) => Number(poke.stats.attack) >= 80);
+      expect(JSON.parse(response.text)).toEqual(pokemon80Plus);
+    });
+
     it("sends the Pokemon when the name matches ignoring case", async () => {
-      const response = await request(app).get(
-        `/pokemon/search?name=${pokemon[0].name.toUpperCase()}`
-      );
+      const response = await request(app).get(`/pokemon/search?name=${pokemon[0].name.toUpperCase()}`);
 
       expect(JSON.parse(response.text)).toEqual([pokemon[0]]);
     });
@@ -67,11 +77,9 @@ describe("app", () => {
 
   describe("/pokemon/:index", () => {
     it("sends a match when the index matches a Pokemon", async () => {
-      
       const response = await request(app).get("/pokemon/123");
 
       expect(JSON.parse(response.text)).toEqual(pokemon[123]);
-
     });
 
     it("sends a sorry message when no Pokemon is found at the index", async () => {
@@ -85,9 +93,7 @@ describe("app", () => {
     it("sends a congratulations adjective", async () => {
       const response = await request(app).get("/run/runny/runner");
 
-      expect(response.text).toEqual(
-        "Congratulations on starting a new project called run-runny-runner!"
-      );
+      expect(response.text).toEqual("Congratulations on starting a new project called run-runny-runner!");
     });
   });
 });
