@@ -64,4 +64,48 @@ app.get("/pokemon/:indexOfArray", (req, res) => {
   }
 });
 
+app.get("/pokemon-pretty", (req, res) => {
+    const pokemonHtml = pokemon.map((poke, index) => `<li><a href="/pokemon-pretty/${index}">${poke.name}</a></li>`).join("");
+    const html = `<h1>All Pokemon</h1><ul>${pokemonHtml}</ul>`;
+    res.send(html);
+});
+
+app.get("/pokemon/search", (req, res) => {
+    const { name, key } = req.query;
+  
+    let filteredPokemon = pokemon;
+  
+    if (name) {
+      filteredPokemon = filteredPokemon.filter(
+        (poke) => poke.name.toUpperCase() === name.toUpperCase()
+      );
+    }
+  
+    if (key && Object.keys(pokemon[0]).includes(key)) {
+      filteredPokemon = filteredPokemon.filter(
+        (poke) => poke[key].toUpperCase() === req.query[key].toUpperCase()
+      );
+    }
+  
+    if (filteredPokemon.length > 0) {
+      res.send(filteredPokemon);
+    } else {
+      res.send([]);
+    }
+});
+  
+app.get("/pokemon-pretty/:indexOfArray", (req, res) => {
+  const { indexOfArray } = req.params;
+
+  if (pokemon[indexOfArray]) {
+    const { name, img, ...otherInfo } = pokemon[indexOfArray];
+    const html = `<h1>${name}</h1><img src="${img}" alt="${name}"/><ul>${Object.entries(otherInfo)
+      .map(([key, value]) => `<li>${key}: ${value}</li>`)
+      .join("")}</ul>`;
+    res.send(html);
+  } else {
+    res.send(`Sorry, no pokemon found at ${indexOfArray}`);
+  }
+});
+
 module.exports = app;
