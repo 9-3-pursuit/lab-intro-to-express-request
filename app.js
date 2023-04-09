@@ -15,6 +15,12 @@ app.get("/:verb/:adjective/:noun", (req, res) => {
 
 // Home page at `/bugs`
 app.get("/bugs", (req, res) => {
+  const message = "<h1> 99 little bugs in the code </h1>";
+  const link = '<a href="/bugs/101">pull one down, patch it around</a>';
+  res.send(`${message} ${link}`);
+});
+
+app.get("/bugs/:numberOfBugs", (req, res) => {
   const message = "99 little bugs in the code";
   const link = '<a href="/bugs/101">pull one down, patch it around</a>';
   res.send(`${message} ${link}`);
