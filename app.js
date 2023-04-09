@@ -5,7 +5,7 @@ const app = express();
 const pokemon = require("./models/pokemon.json");
 
 const rootHandler = (req, res) => {
-  res.status(200).send(`Welcome 99 Pokemon`);
+  res.status(200).send("Welcome 99 Pokemon");
 };
 
 const verbAdjectiveNounHandler = (req, res) => {
@@ -24,7 +24,7 @@ const bugsTemplate = (numOfBugs, nextNumOfBugs) => `
 `;
 
 const bugsHandler = (req, res) => {
-  res.status(200).send(`99 little bugs in the code`);
+  res.status(200).send("99 little bugs in the code");
 };
 
 const tooManyBugsHandler = (req, res) => {
@@ -44,12 +44,11 @@ const pokemonHandler = (req, res) => {
 
 const pokemonSearchHandler = (req, res) => {
   const pokemonName = req.query.name;
-  const pokemonFound = pokemon.filter((poke) => {
-    return poke.name.toLowerCase() === pokemonName.toLowerCase();
-  });
+  const pokemonFound = pokemon.filter((poke) => poke.name.toLowerCase() === pokemonName.toLowerCase());
 
-  if (!pokemonFound) {
+  if (pokemonFound.length === 0) {
     res.status(404).json(pokemonFound);
+    return;
   }
   res.status(200).json(pokemonFound);
 };
@@ -59,23 +58,18 @@ const pokemonIndexHandler = (req, res) => {
 
   if (!pokemon[indexOfPokemon]) {
     res.status(404).send(`Sorry, no pokemon found at ${indexOfPokemon}`);
+    return;
   }
 
   res.status(200).json(pokemon[indexOfPokemon]);
 };
 
 app.get("/", rootHandler);
-
 app.get("/:verb/:adjective/:noun", verbAdjectiveNounHandler);
-
 app.get("/bugs", bugsHandler);
-
 app.get("/bugs/:numberOfBugs", tooManyBugsHandler);
-
 app.get("/pokemon", pokemonHandler);
-
 app.get("/pokemon/search", pokemonSearchHandler);
-
 app.get("/pokemon/:index", pokemonIndexHandler);
 
 module.exports = app;
