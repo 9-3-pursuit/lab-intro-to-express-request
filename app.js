@@ -15,15 +15,23 @@ app.get("/:verb/:adjective/:noun", (req, res) => {
 
 // Home page at `/bugs`
 app.get("/bugs", (req, res) => {
-  const message = "<h1> 99 little bugs in the code </h1>";
+  const message = "<h1>99 little bugs in the code</h1>";
   const link = '<a href="/bugs/101">pull one down, patch it around</a>';
   res.send(`${message} ${link}`);
 });
 
 app.get("/bugs/:numberOfBugs", (req, res) => {
-  const message = "99 little bugs in the code";
-  const link = '<a href="/bugs/101">pull one down, patch it around</a>';
-  res.send(`${message} ${link}`);
+  const {numberOfBugs} = req.params
+  const message = `<h1>${numberOfBugs} little bugs in the code</h1>`;
+
+  if (numberOfBugs >= 200) {
+    const link = '<a href="/bugs">Too many bugs!! Start over!</a>';
+    res.send(`${message} ${link}`);
+  } else {
+    const nextNumberOfBugs = numberOfBugs + 2;
+    const link = `<a href="/bugs/${nextNumberOfBugs}">pull one down, patch it around</a>`;
+    res.send(`${message} ${link}`);
+  }
 });
 
 module.exports = app;
