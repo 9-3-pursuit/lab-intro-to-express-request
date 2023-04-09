@@ -23,20 +23,31 @@ app.get("/", (request, response) => {
     });
 
 app.get('/bugs/', (request, response) => {
+    
     response.send("99 little bugs in the code!");
+    
     });
+    app.get('/bugs/:number_of_bugs', (request, response) => {
+        const { number_of_bugs } = request.params;
+        if (number_of_bugs >= 200) {
+            response.send(`<a href= Too many bugs!! Start over!>`);
+        }if (number_of_bugs < 200){
+            response.send(`/href.${number_of_bugs}.Pull one down, patch it around/:number_of_bugs>`);
+        };
+    });
+        
 
-    app.get('/bugs/link', (request, response) => {
-    response.send('<a href= Too many bugs!!, Start over!>');
-    });
+    // app.get('/bugs/link:error', (request, response) => {
+    // response.send('<a href= Too many bugs!!, Start over!>');
+    // });
 
 // app.get('/bugs/:number_of_bugs', (request, response) => {
 //     const { number_of_bugs } = request.params;
 //     response.send(`${number_of_bugs} little bugs in the code!`);
 //     });
 
-app.listen(8888, () => {
-//   console.log("I am listening for requests on port 3003!");
-});
+// app.listen(8888, () => {
+// //   console.log("I am listening for requests on port 3003!");
+// });
 
 module.exports = app;
