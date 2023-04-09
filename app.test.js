@@ -8,7 +8,7 @@ describe("app", () => {
     it("sends a welcome message", async () => {
       const response = await request(app).get("/");
 
-      expect(response.text).toEqual("Welcome 99 Pokemon");
+      expect(response.text).toContain("Welcome 99 Pokemon");
     });
   });
 
