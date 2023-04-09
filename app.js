@@ -43,7 +43,9 @@ app.get("/pokemon", (req, res) => {
 app.get("/pokemon/search", (req, res) => {
   const { name } = req.query;
 
-  const result = pokemon.find((poke) => poke.name.toUpperCase() === name.toUpperCase());
+  const result = pokemon.find(
+    (poke) => poke.name.toUpperCase() === name.toUpperCase()
+  );
 
   if (result) {
     res.send([result]);
@@ -102,11 +104,14 @@ app.get("/pokemon-pretty/:indexOfArray", (req, res) => {
 
   if (pokemon[indexOfArray]) {
     const { name, img, ...otherInfo } = pokemon[indexOfArray];
-    const html = `<h1>${name}</h1><img src="${img}" alt="${name}"/><ul>${Object.entries(
-      otherInfo
-    )
+    const html = 
+    `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h1 style="text-align: center;">${name}</h1><img style="width: 25%;" src="${img}" alt="${name}"/>
+    <ul style="text-align: center;">${Object.entries(otherInfo)
       .map(([key, value]) => `<li>${key}: ${value}</li>`)
-      .join("")}</ul>`;
+      .join("")}
+    </ul>
+    </div>`;
     res.send(html);
   } else {
     res.send(`Sorry, no pokemon found at ${indexOfArray}`);
