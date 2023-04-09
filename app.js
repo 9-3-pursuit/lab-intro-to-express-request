@@ -21,15 +21,15 @@ app.get("/bugs", (req, res) => {
 });
 
 app.get("/bugs/:numberOfBugs", (req, res) => {
-  const {numberOfBugs} = req.params
+  const { numberOfBugs } = req.params;
   const message = `<h1>${numberOfBugs} little bugs in the code</h1>`;
 
   if (numberOfBugs >= 200) {
     const link = '<a href="/bugs">Too many bugs!! Start over!</a>';
     res.send(`${message} ${link}`);
   } else {
-    const nextNumberOfBugs = numberOfBugs + 2;
-    const link = `<a href="/bugs/${nextNumberOfBugs}">pull one down, patch it around</a>`;
+    const nextNumberOfBugs = Number(numberOfBugs) + 2;
+    const link = `<a href="/bugs/${nextNumberOfBugs}">Pull one down, patch it around</a>`;
     res.send(`${message} ${link}`);
   }
 });
