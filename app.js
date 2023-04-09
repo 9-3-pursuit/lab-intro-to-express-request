@@ -1,11 +1,12 @@
 const express = require("express");
+const path = require("path");
 
 const app = express();
 
 const pokemon = require("./models/pokemon.json");
 
 const rootHandler = (req, res) => {
-  res.status(200).send("Welcome 99 Pokemon");
+  res.status(200).sendFile(path.join(__dirname, "./pages/home.html"));
 };
 
 const verbAdjectiveNounHandler = (req, res) => {
