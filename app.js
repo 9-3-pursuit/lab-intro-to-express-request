@@ -2,11 +2,13 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
+// app.set("views", "./views");
+app.set("view engine", "ejs");
 
 const pokemon = require("./models/pokemon.json");
 
 const rootHandler = (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, "./pages/home.html"));
+  res.status(200).sendFile(path.join(__dirname, "./views/pages/home.html"));
 };
 
 const verbAdjectiveNounHandler = (req, res) => {
