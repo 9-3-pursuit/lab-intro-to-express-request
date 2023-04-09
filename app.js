@@ -17,21 +17,7 @@ app.get("/:verb/:adjective/:noun", (req, res) => {
 app.get("/bugs", (req, res) => {
   const message = "99 little bugs in the code";
   const link = '<a href="/bugs/101">pull one down, patch it around</a>';
-
   res.send(`${message} ${link}`);
-});
-
-app.get("/bugs/:numberOfBugs", function (req, res) {
-  const numberOfBugs = parseInt(req.params.numberOfBugs);
-  if (numberOfBugs > 200) {
-    res.send(`There are too many bugs left to fix. <a href="/">Start over</a>`);
-  } else {
-    const remainingBugs = 99 - numberOfBugs;
-    const nextLink = `<a href="/bugs/${
-      numberOfBugs + 2
-    }">pull one down, patch it around</a>`;
-    res.send(`${remainingBugs} little bugs in the code ${nextLink}`);
-  }
 });
 
 module.exports = app;
