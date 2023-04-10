@@ -31,6 +31,8 @@ app.get("/", (request, response) => {
 app.get('/bugs', (request, response) => {
     
     response.send("99 little bugs in the code!");
+    res.links({ next: 'http://api.example.com/users?page=2' });
+    console.log(res.get('Link'));
     
     });
     app.get('/bugs/:number_of_bugs', (request, response) => {
@@ -38,7 +40,7 @@ app.get('/bugs', (request, response) => {
         if (number_of_bugs >= 200) {
             response.send(`<a href= Too many bugs!! Start over!>`);
         }if (number_of_bugs < 200){
-            response.send(`/href.${number_of_bugs}.Pull one down, patch it around/:number_of_bugs>`);
+            response.send(`${number_of_bugs} little bugs in the code`);
         };
     });
         
