@@ -75,37 +75,12 @@ app.get("/pokemon-pretty", (req, res) => {
   res.send(html);
 });
 
-// app.get("/pokemon/search", (req, res) => {
-//     const { name, key } = req.query;
-
-//     let filteredPokemon = pokemon;
-
-//     if (name) {
-//       filteredPokemon = filteredPokemon.filter(
-//         (poke) => poke.name.toUpperCase() === name.toUpperCase()
-//       );
-//     }
-
-//     if (key && Object.keys(pokemon[0]).includes(key)) {
-//       filteredPokemon = filteredPokemon.filter(
-//         (poke) => poke[key].toUpperCase() === req.query[key].toUpperCase()
-//       );
-//     }
-
-//     if (filteredPokemon.length > 0) {
-//       res.send(filteredPokemon);
-//     } else {
-//       res.send([]);
-//     }
-// });
-
 app.get("/pokemon-pretty/:indexOfArray", (req, res) => {
   const { indexOfArray } = req.params;
 
   if (pokemon[indexOfArray]) {
     const { name, img, ...otherInfo } = pokemon[indexOfArray];
-    const html = 
-    `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    const html = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
     <h1 style="text-align: center;">${name}</h1><img style="width: 25%;" src="${img}" alt="${name}"/>
     <ul style="text-align: center;">${Object.entries(otherInfo)
       .map(([key, value]) => `<li>${key}: ${value}</li>`)
